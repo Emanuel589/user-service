@@ -9,6 +9,16 @@ export class CreateUserDto {
   @IsNotEmpty()
   @MinLength(3)
   userName: string;
-  firstName: string | undefined;
-  lastName: string | undefined;
+
+  @IsString()
+  @IsNotEmpty()
+  firstName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  gender: string;
 }

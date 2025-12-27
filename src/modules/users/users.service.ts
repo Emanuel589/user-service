@@ -46,12 +46,15 @@ export class UsersService {
     }
 
     const defaultPassword = this.generateDefaultPassword();
-    const saltRounds = this.configService.get<number>('BCRYPT_ROUNDS', 10);
+    const saltRounds = Number(
+      this.configService.get<number>('BCRYPT_ROUNDS', 10),
+    );
     const hashedPassword = await bcrypt.hash(defaultPassword, saltRounds);
 
     const userProfile = this.profileRepository.create({
       firstName: createUserDto.firstName,
       lastName: createUserDto.lastName,
+      gender: createUserDto.gender,
     });
 
     const user = this.userRepository.create({

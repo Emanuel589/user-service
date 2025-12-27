@@ -1,7 +1,7 @@
 import { Entity, Column, OneToOne } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { BaseEntity } from 'src/common/entities/base.entity';
-import { UserProfile } from 'src/modules/user-profile/entities/user-profile.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
+import { UserProfile } from '../..//user-profile/entities/user-profile.entity';
 
 @Entity('user')
 export class User extends BaseEntity {

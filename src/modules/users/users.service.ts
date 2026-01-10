@@ -73,7 +73,7 @@ export class UsersService {
   async findOne(id: string): Promise<User> {
     const user = await this.userRepository.findOne({
       where: { id },
-      relations: ['profile'],
+      relations: ['userProfile'],
     });
 
     if (!user) {
@@ -86,18 +86,23 @@ export class UsersService {
   async findByUsername(userName: string): Promise<User | null> {
     return this.userRepository.findOne({
       where: { userName },
-      relations: ['profile'],
+      relations: ['userProfile'],
     });
   }
 
   async findAll(): Promise<User[]> {
     return this.userRepository.find({
-      relations: ['profile'],
+      relations: ['userProfile'],
     });
   }
 
   async updatePassword(userId: string, newPassword: string): Promise<void> {
-    const saltRounds = this.configService.get<number>('BCRYPT_ROUNDS', 10);
+    const saltRounds = Number(
+      this.configService.get<number>('BCRYPT_ROUNDS', 10),
+    );
+    if (!Number.isInteger(saltRounds) || saltRounds < 4) {
+      throw new Error('Invalid BCRYPT_ROUNDS configuration');
+    }
     const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
     await this.userRepository.update(userId, {

@@ -25,11 +25,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JwtPayload) {
+    console.log('🔍 JWT Payload:', payload); // 👈 AGREGAR
     const user = await this.usersService.findOne(payload.sub);
+    console.log('✅ User active:', user?.isActive); // 👈 AGREGAR
 
     if (!user || !user.isActive) {
+      console.log('❌ Unauthorized: User not found or inactive'); // 👈 AGREGAR
       throw new UnauthorizedException();
     }
+    console.log('✅ Validation successful'); // 👈 AGREGAR
 
     return {
       id: user.id,

@@ -98,16 +98,59 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 
+# Docker
 
-# MIGRATIONS
-# crea migración vacía
+We are using Docker Compose to work con docker container and create our database.
+
+## Create docker image for data base
+
+```bash
+docker compose up -d
+```
+
+## Stop Data Base 
+
+```bash
+docker compose down
+```
+
+## Remove Data Base
+
+```bash
+docker compose down -v
+```
+
+# Migrations
+
+All database updates should be done using migrations. If you want more information, please read the Typeorm documentation https://typeorm.io/docs/migrations/why
+
+## Creating an empty migration
+
+```bash
 npm run migration:create --name=AddProfileTable
+```
 
-# genera migración automática
+## Generating an automatic migration
+```bash
 npm run migration:generate --name=CreateUsersTable
+```
 
-# ejecuta migraciones
+## Execute migrations
+```bash
 npm run migration:run
+```
 
-# revierte la última migración
+## Revert last migration
+```bash
 npm run migration:revert
+```
+
+# Run Project
+
+```bash
+# Follow these steps
+1. npm install
+2. docker compose up -d
+3. npm run migration:run
+4. npm run start:dev
+```

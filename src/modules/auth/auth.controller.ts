@@ -30,7 +30,6 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
-  //@CurrentUser() user: AuthenticatedUser, otra opcion
   @Post('change-password')
   @UseGuards(JwtAuthGuard)
   @AllowPasswordChange()

@@ -12,12 +12,12 @@ import { AuthModule } from './modules/auth/auth.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      type: 'postgres', // o mysql, mariadb, etc.
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres12345',
-      database: 'user_service_db',
+      type: 'postgres',
+      host: process.env.DB_HOST || 'localhost',
+      port: Number(process.env.DB_PORT) || 5432,
+      username: process.env.DB_USER || 'postgres',
+      password: process.env.DB_PASS || 'postgres12345',
+      database: process.env.DB_NAME || 'user_service_db',
       autoLoadEntities: true,
       synchronize: false,
     }),
@@ -28,4 +28,3 @@ import { AuthModule } from './modules/auth/auth.module';
   providers: [AppService],
 })
 export class AppModule {}
-// me quede aca
